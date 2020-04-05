@@ -135,8 +135,9 @@ GameObject:
   - component: {fileID: 1850794}
   - component: {fileID: 1850793}
   - component: {fileID: 1850792}
+  - component: {fileID: 1850795}
   m_Layer: 0
-  m_Name: DevBackground
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -246,7 +247,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -277,6 +278,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1850789}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1850795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1850789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b58ee5a2f7af7734b9b2609c16405ff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,7 +461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.5, y: 4.5, z: -10}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -467,8 +480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   in_tileAmount: 10
-  go_tileSprite: {fileID: 7329839336034976426, guid: e3a3a538f62ec7b4d8dfb2e03dde0041,
-    type: 3}
   mouseHitX: 0
   mouseHitY: 0
 --- !u!114 &963194230
@@ -484,5 +495,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fl_speed: 10
-  fl_minZoom: 3
-  fl_maxZoom: 40
+  fl_minZoom: 5
+  fl_maxZoom: 400
