@@ -20,16 +20,32 @@ public class MainMenuFindMaps : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bl_mapsLoaded) in_mapCount = 0;
-        else
+        if (!bl_mapsLoaded)
         {
             UpdateMaps();
         }
+
+        go_content.GetComponent<RectTransform>().sizeDelta = new Vector2(0, (in_mapCount * 20) + 10);
+
+    }
+
+    public void ToggleUpdateMaps()
+    {
+        bl_mapsLoaded = false;
     }
 
     void UpdateMaps()
     {
         bl_mapsLoaded = true;
+
+        in_mapCount = 0;
+
+        for (int i = 0; i < go_content.transform.childCount; i++)
+        {
+            Destroy(go_content.transform.GetChild(i).gameObject);
+            Debug.Log("Removed map");
+        }
+
         foreach (string file in System.IO.Directory.GetFiles(st_filePath))
         {
             if (file.Substring(file.Length-3) == "png" || file.Substring(file.Length-3) == "jpg")
@@ -38,7 +54,7 @@ public class MainMenuFindMaps : MonoBehaviour
                 go_newButton.transform.localPosition = new Vector2(go_newButton.transform.localPosition.x, go_newButton.transform.localPosition.y - (20 * in_mapCount));
                 go_newButton.transform.GetChild(0).GetComponent<Text>().text = file.Substring(5).Remove(file.Substring(5).Length-4);
                 go_newButton.GetComponent<MainMenuSelectMap>().st_fullName = file;
-
+                Debug.Log("Added map");
                 in_mapCount++;
             }
         }

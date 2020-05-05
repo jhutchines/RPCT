@@ -27,9 +27,4 @@ public class MainMenuGetMap : MonoBehaviour
             tx_mapName.text = sc_newWorld.st_mapName;
         }
     }
-
-    public void SelectMap()
-    {
-        
-    }
 }

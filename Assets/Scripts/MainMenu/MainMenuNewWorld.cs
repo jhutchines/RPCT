@@ -32,7 +32,7 @@ public class MainMenuNewWorld : MonoBehaviour
             if (st_worldName != "" && st_mapName != "") go_arrow.SetActive(true);
             else go_arrow.SetActive(false);
 
-            if (Input.GetKeyDown(KeyCode.Space)) Debug.Log(st_worldName);
+            if (gameManager.bl_debugMode && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.Space)) Debug.Log(st_worldName);
         }
     }
 

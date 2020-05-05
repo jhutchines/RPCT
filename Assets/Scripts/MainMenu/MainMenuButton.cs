@@ -20,6 +20,7 @@ public class MainMenuButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Time.timeScale = 1;
         mm_canvas = transform.parent.GetComponent<MainMenu>();
         tx_button = GetComponent<Text>();
         v3_startPos = transform.localPosition;
@@ -63,5 +64,10 @@ public class MainMenuButton : MonoBehaviour
 
         if (transform.localPosition == v3_moveOffscreen) tx_button.enabled = false;
         else tx_button.enabled = true;
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }
