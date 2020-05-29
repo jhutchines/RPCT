@@ -17,11 +17,22 @@ public class GameManager : MonoBehaviour
     public AudioClip[] audioClips;
     int currentAudio;
 
+    public float fl_worldSizeX;
+    public float fl_worldSizeY;
+    public float fl_partySpeed;
+
     public enum MarkerType
     {
         Location,
         Character,
+        Tools,
         Both
+    }
+
+    public enum ToolSelected
+    {
+        None,
+        Measurement
     }
 
     GameObject[] saveObjs;

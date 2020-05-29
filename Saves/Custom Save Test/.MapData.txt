@@ -1,1 +1,3 @@
 Maps/TestMap.png
+45
+30

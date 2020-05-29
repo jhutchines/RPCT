@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.30465338, g: 0, b: 0.41509432, a: 0.5019608}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   go_textbox: {fileID: 7599894453960845173}
   fl_positionZ: -2
+  markerType: 0
 --- !u!65 &8351422964831795115
 BoxCollider:
   m_ObjectHideFlags: 0

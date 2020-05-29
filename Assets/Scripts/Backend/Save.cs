@@ -38,13 +38,19 @@ public class Save : MonoBehaviour
                 Directory.Delete(saveLocation);
             }
             Directory.CreateDirectory(saveLocation);
-            File.Create(saveLocation + "/.MapData.txt").Dispose();
-            File.WriteAllText(saveLocation + "/.MapData.txt", gameManager.st_mapName);
+            string mapData = saveLocation + "/.MapData.txt";
+            File.Create(mapData).Dispose();
+            StreamWriter mapWriter = new StreamWriter(mapData);
+            mapWriter.WriteLine(gameManager.st_mapName);
+            mapWriter.WriteLine(gameManager.fl_worldSizeX);
+            mapWriter.WriteLine(gameManager.fl_worldSizeY);
+            mapWriter.WriteLine(gameManager.fl_partySpeed);
+            mapWriter.Close();
 
             for (int i = 0; i < worldMap.transform.childCount; i++)
             {
                 GameObject newMarker = worldMap.transform.GetChild(i).gameObject;
-                if (newMarker.GetComponent<CreateMap>() != null) continue;
+                if (newMarker.GetComponent<MarkerData>() == null) continue;
                 string newFile = saveLocation + "/" + newMarker.name + "_" + i + ".txt";
                 File.Create(newFile).Dispose();
                 StreamWriter writer = new StreamWriter(newFile);

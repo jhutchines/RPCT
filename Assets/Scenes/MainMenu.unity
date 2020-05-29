@@ -448,7 +448,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1112782067}
   m_HandleRect: {fileID: 1112782066}
   m_Direction: 2
-  m_Value: 0.99992937
+  m_Value: 0.9999292
   m_Size: 0.33333334
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1265,6 +1265,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c2d09e2c034e47748af1a44bd70cb1b1, type: 3}
   - {fileID: 8300000, guid: ed34dba746671a141b06ba435ab0653e, type: 3}
   - {fileID: 8300000, guid: c48ad4c705ee266429f74e96226aad3f, type: 3}
+  fl_worldSizeX: 0
+  fl_worldSizeY: 0
+  fl_partySpeed: 0
 --- !u!4 &560384801
 Transform:
   m_ObjectHideFlags: 0
@@ -3613,7 +3616,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Alpha 0.14
+  m_Text: Alpha 0.21
 --- !u!222 &1755046796
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3846,7 +3849,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 573159617}
   m_HandleRect: {fileID: 573159616}
   m_Direction: 2
-  m_Value: 0.99993575
+  m_Value: 0.9999356
   m_Size: 0.26666668
   m_NumberOfSteps: 0
   m_OnValueChanged:

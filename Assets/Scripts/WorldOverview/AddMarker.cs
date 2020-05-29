@@ -73,6 +73,16 @@ public class AddMarker : MonoBehaviour
                                                                                (go_newBackground.GetComponent<RectTransform>().sizeDelta.x / 2) + 100, 0);
             go_newBackground.GetComponent<MarkerData>().go_textbox = go_textBox;
             go_newBackground.GetComponent<MarkerData>().markerType = markerType;
+
+            go_newBackground.GetComponent<Image>().raycastTarget = false;
+            for (int i = 0; i < go_newBackground.transform.childCount; i++)
+            {
+                if (go_newBackground.transform.GetChild(i).GetComponent<Image>() != null)
+                {
+                    go_newBackground.transform.GetChild(i).GetComponent<Image>().raycastTarget = false;
+                }
+            }
+
             sc_camera.go_addMarker = go_newBackground;
         }
         else

@@ -39,7 +39,7 @@ public class MarkerData : MonoBehaviour
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
         {
             transform.position = new Vector3(hit.point.x, hit.point.y, fl_positionZ);
-            if (Input.GetMouseButtonDown(0)) StartCoroutine(WaitToPlace());
+            if (Input.GetMouseButtonUp(0)) WaitToPlace();
             if (Input.GetMouseButtonDown(1))
             {
                 sc_camera.go_addMarker = null;
@@ -48,9 +48,9 @@ public class MarkerData : MonoBehaviour
         }
     }
 
-    IEnumerator WaitToPlace()
+    void WaitToPlace()
     {
-        yield return new WaitForSeconds(0.05f);
         sc_camera.go_addMarker = null;
+        if (sc_camera.bl_overUI) Destroy(gameObject);
     }
 }

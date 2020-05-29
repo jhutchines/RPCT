@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class CameraControls : MonoBehaviour
@@ -27,9 +28,12 @@ public class CameraControls : MonoBehaviour
     public Text tx_locationsButton;
     public GameObject go_charactersUI;
     public Text tx_charactersButton;
+    public GameObject go_toolsUI;
+    public Text tx_toolsButton;
     public GameObject go_pauseScreen;
     bool bl_hideUI = true;
     public bool bl_paused;
+    public GameManager.ToolSelected toolSelected;
 
     [Header("Markers")]
     public GameObject go_addMarker;
@@ -38,10 +42,13 @@ public class CameraControls : MonoBehaviour
     public GameManager.MarkerType markerType;
 
     [Header("Raycasts")]
+    public RaycastHit rc_hit;
     public GameObject go_objectHit;
     public GameObject go_objectSelected;
+    public bool bl_overUI;
 
     GameManager gameManager;
+    float fl_heldTime;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +107,7 @@ public class CameraControls : MonoBehaviour
         {
             Time.timeScale = 1;
             MouseLocation();
+            bl_overUI = IsPointerOverUIElement();
         }
         else
         {
@@ -107,15 +115,30 @@ public class CameraControls : MonoBehaviour
             go_objectSelected = gameObject;
             Time.timeScale = 0;
         }
+
     }
 
     void MoveCamera()
     {
-        transform.position += new Vector3(Input.GetAxis("Horizontal") * fl_speed * Time.deltaTime, 
-                                          Input.GetAxis("Vertical") * fl_speed * Time.deltaTime, 
+        transform.position += new Vector3(Input.GetAxis("Horizontal") * fl_speed * Time.deltaTime,
+                                          Input.GetAxis("Vertical") * fl_speed * Time.deltaTime,
                                           0);
 
         if (Input.GetMouseButton(2))
+        {
+            fl_heldTime += Time.deltaTime;
+        }
+
+        if (Input.GetMouseButtonUp(2))
+        {
+            if (fl_heldTime <= 0.4f)
+            {
+                GetComponent<MeasureDistance>().ChangeOffset();
+            }
+            fl_heldTime = 0;
+        }
+
+        if (fl_heldTime >= 0.4f)
         {
             transform.position -= new Vector3(Input.GetAxis("Mouse X") * fl_mouseSpeed * Time.deltaTime,
                                               Input.GetAxis("Mouse Y") * fl_mouseSpeed * Time.deltaTime,
@@ -157,8 +180,10 @@ public class CameraControls : MonoBehaviour
                 {
                     go_locationsUI.SetActive(true);
                     go_charactersUI.SetActive(false);
+                    go_toolsUI.SetActive(false);
                     tx_locationsButton.fontStyle = FontStyle.Bold;
                     tx_charactersButton.fontStyle = FontStyle.Normal;
+                    tx_toolsButton.fontStyle = FontStyle.Normal;
                 }
                 break;
 
@@ -166,8 +191,21 @@ public class CameraControls : MonoBehaviour
                 {
                     go_charactersUI.SetActive(true);
                     go_locationsUI.SetActive(false);
+                    go_toolsUI.SetActive(false);
                     tx_charactersButton.fontStyle = FontStyle.Bold;
                     tx_locationsButton.fontStyle = FontStyle.Normal;
+                    tx_toolsButton.fontStyle = FontStyle.Normal;
+                }
+                break;
+
+            case GameManager.MarkerType.Tools:
+                {
+                    go_toolsUI.SetActive(true);
+                    go_locationsUI.SetActive(false);
+                    go_charactersUI.SetActive(false);
+                    tx_toolsButton.fontStyle = FontStyle.Bold;
+                    tx_locationsButton.fontStyle = FontStyle.Normal;
+                    tx_charactersButton.fontStyle = FontStyle.Normal;
                 }
                 break;
 
@@ -182,17 +220,25 @@ public class CameraControls : MonoBehaviour
 
     void MouseLocation()
     {
-        RaycastHit hit;
         if (go_addMarker != null) go_objectHit = go_addMarker;
         else
         {
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, Mathf.Infinity))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out rc_hit, Mathf.Infinity))
             {
-                go_objectHit = hit.transform.gameObject;
+                go_objectHit = rc_hit.transform.gameObject;
             }
         }
 
         if (Input.GetMouseButtonDown(0)) go_objectSelected = go_objectHit;
+    }
+
+    public static bool IsPointerOverUIElement()
+    {
+        var eventData = new PointerEventData(EventSystem.current);
+        eventData.position = Input.mousePosition;
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        return results.Count > 0;
     }
 
     public void ReturnToMenu()

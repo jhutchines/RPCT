@@ -16,5 +16,6 @@ public class ChangeUIMenu : MonoBehaviour
     public void ChangeUI()
     {
         cc_camera.markerType = markerType;
+        cc_camera.toolSelected = GameManager.ToolSelected.None;
     }
 }
